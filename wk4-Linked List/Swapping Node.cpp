@@ -2,10 +2,90 @@
 //This code is going to swapping
 //two
 #include <iostream>
+#include<stdio.h>
 
 using namespace std;
 
+struct node
+{
+    int data;
+    node *next;
+    node *preverous;
+}linknode;
+
+struct Queue
+{
+    node *front;//最前一個ptr
+    node *rear;//尾巴的ptr
+    int size;
+};
+
+void Push(Queue &q, int v)
+{
+    node *n = new node;
+    n->data = v;
+    n->next = NULL;
+    if(q.front == NULL)    //queue是空的
+    {
+        q.front = q.rear = n;
+    }
+    else
+    {
+        n->preverous = q.rear;
+        q.rear->next = n;    //先將尾巴接上去
+        q.rear = n;        //再將queue的尾巴移到正確位置
+    }
+    q.size++;
+}
+
+void Display(Queue &q)
+{
+    for(node *n = q.front; n != NULL; n = n->next)
+        {
+            cout << n->data ;
+            if(n->next)cout<<" ";
+        }
+}
+
+/*void ptr_switch(q, sw1, sw2)
+{
+    node *n = q.front;
+    int num, ptr=n, ptr1, ptr2;
+    if(sw1>sw2){num=sw1; sw1=sw2; sw2=num;}
+    for(num=1;num<=sw2;num++,n = n->next)
+    {
+        if(num==sw1)ptr1 = n;
+        else if(num==sw2)ptr2 = n;
+    }
+    n=ptr;
+    for(num=1;n->next!=NULL;n=n->next)
+    {
+        if(num)
+    }
+
+
+}*/
+
 int main(){
-    cout<<"Hello world!";
+    Queue q;
+    q.front = q.rear = NULL;    //一開始沒有資料，都先設為NULL指標。
+    q.size = 0;
+
+    int temp;//,sw1,sw2;
+
+    //getchar()讀取下一個字元
+    while(cin>>temp)
+    {
+        Push(q,temp);
+        if(getchar()=='\n')break;
+    }
+  
+    //印出完整的Linked list
+    Display(q);
+
+    cout<<endl;
+    //cin>>sw1>>sw2;
+
+    //ptr_switch(q, sw1, sw2);
     return 0;
 }
