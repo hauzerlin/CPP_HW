@@ -47,31 +47,54 @@ void Display(Queue &q)
         }
 }
 
-/*void ptr_switch(q, sw1, sw2)
+void ptr_switch(Queue &q, int sw1, int sw2)
 {
+    if(sw1==sw2)return;
     node *n = q.front;
-    int num, ptr=n, ptr1, ptr2;
-    if(sw1>sw2){num=sw1; sw1=sw2; sw2=num;}
+    node *n1, *n2;
+    int num;
+
+    if(sw1>sw2){num=sw1; sw1=sw2; sw2=num;} //為方便計算設定(sw1<sw2)
+    
+    //記錄在sw1與sw2的ptr之next,preverous還有本身的地址
     for(num=1;num<=sw2;num++,n = n->next)
     {
-        if(num==sw1)ptr1 = n;
-        else if(num==sw2)ptr2 = n;
+        if(num==sw1)
+        {
+            n1=n;
+            n1->next = n->next;
+            n1->preverous = n->preverous;
+        }
+        else if(num==sw2)
+        {
+            n2= n;
+            n2->next = n->next;
+            n2->preverous = n2->preverous;
+        }
     }
-    n=ptr;
-    for(num=1;n->next!=NULL;n=n->next)
+    
+    //確認n1不是排頭
+    if(n1->preverous!=NULL)
     {
-        if(num)
+        n=n1->preverous;
+        n->next = n2;
     }
+    else q.front = n2;
 
 
-}*/
+    node *tmp = n1->next;
+    n1->next = n2->next;
+    n2->next = tmp;
+
+
+}
 
 int main(){
     Queue q;
     q.front = q.rear = NULL;    //一開始沒有資料，都先設為NULL指標。
     q.size = 0;
 
-    int temp;//,sw1,sw2;
+    int temp,sw1,sw2;
 
     //getchar()讀取下一個字元
     while(cin>>temp)
@@ -79,13 +102,12 @@ int main(){
         Push(q,temp);
         if(getchar()=='\n')break;
     }
-  
+
+    cin>>sw1>>sw2;
+
     //印出完整的Linked list
     Display(q);
 
-    cout<<endl;
-    //cin>>sw1>>sw2;
-
-    //ptr_switch(q, sw1, sw2);
+    ptr_switch(q, sw1, sw2);
     return 0;
 }
