@@ -51,10 +51,8 @@ void Display(Queue &q)
 void ptr_switch(Queue &q, int sw1, int sw2)
 {
     if(sw1==sw2)return;
-    if(sw1>q.size||sw2>q.size)return;
-
     node *n = q.front;
-    node *n1, *n2;
+    node *n1= NULL, *n2=NULL;
     int num;
 
     if(sw1>sw2){num=sw1; sw1=sw2; sw2=num;} //為方便計算設定(sw1<sw2)
@@ -62,21 +60,16 @@ void ptr_switch(Queue &q, int sw1, int sw2)
     //記錄在sw1與sw2的ptr之next,preverous還有本身的地址
     for(num=1;num<=sw2;num++,n = n->next)
     {
-        if(num==sw1)
-        {
-            n1=n;
-            n1->next = n->next;
-            n1->preverous = n->preverous;
-        }
-        else if(num==sw2)
-        {
-            n2= n;
-            n2->next = n->next;
-            n2->preverous = n2->preverous;
-        }
+        if(n->data == sw1)n1=n;
+        else if(n->data == sw2)n2= n;
+
+        if(n1!=NULL && n2!=NULL)break;
     }
 
-    //cout<<"n2: "<< n2->preverous->data <<"\nn1: "<< n1->preverous->data <<endl;
+    //cout<< "n1: " << n1 <<" n2: "<< n2 <<endl;
+
+    if(n1==NULL||n2==NULL)return;
+
     //確認n1不是排頭
     if(n1!=q.front)
     {
@@ -85,8 +78,12 @@ void ptr_switch(Queue &q, int sw1, int sw2)
     }
     else  q.front = n2;
 
-    n=n2->preverous;
-    n->next =n1;
+    if(n2!=q.front)
+    {
+        n=n2->preverous;
+        n->next =n1;
+    }
+    else q.front = n1;
 
 
     node *tmp = n2->next;
@@ -105,12 +102,9 @@ int main(){
     while(cin>>temp)
     {
         Push(q,temp);
-        if(getchar()=='\n')break;
+        char t = getchar();
+        if(t=='\n')break;
     }
-
-    //印出完整的Linked list
-    //Display(q);
-    //cout<<"\nsize: "<<q.size<<endl;
 
     cin>>sw1>>sw2;
     ptr_switch(q, sw1, sw2);
