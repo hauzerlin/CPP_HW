@@ -1,6 +1,7 @@
 /*Swapping node.cpp*/
 //This code is going to swapping
-//two
+//two ptr address
+
 #include <iostream>
 #include<stdio.h>
 
@@ -42,14 +43,16 @@ void Display(Queue &q)
 {
     for(node *n = q.front; n != NULL; n = n->next)
         {
-            cout << n->data ;
-            if(n->next)cout<<" ";
+            cout << n->data;
+            if(n->next!=NULL) cout<< " " ;
         }
 }
 
 void ptr_switch(Queue &q, int sw1, int sw2)
 {
     if(sw1==sw2)return;
+    if(sw1>q.size||sw2>q.size)return;
+
     node *n = q.front;
     node *n1, *n2;
     int num;
@@ -72,21 +75,23 @@ void ptr_switch(Queue &q, int sw1, int sw2)
             n2->preverous = n2->preverous;
         }
     }
-    
+
+    //cout<<"n2: "<< n2->preverous->data <<"\nn1: "<< n1->preverous->data <<endl;
     //確認n1不是排頭
-    if(n1->preverous!=NULL)
+    if(n1!=q.front)
     {
         n=n1->preverous;
         n->next = n2;
     }
-    else q.front = n2;
+    else  q.front = n2;
+
+    n=n2->preverous;
+    n->next =n1;
 
 
-    node *tmp = n1->next;
-    n1->next = n2->next;
-    n2->next = tmp;
-
-
+    node *tmp = n2->next;
+    n2->next = n1->next;
+    n1->next = tmp;
 }
 
 int main(){
@@ -103,11 +108,15 @@ int main(){
         if(getchar()=='\n')break;
     }
 
+    //印出完整的Linked list
+    //Display(q);
+    //cout<<"\nsize: "<<q.size<<endl;
+
     cin>>sw1>>sw2;
+    ptr_switch(q, sw1, sw2);
 
     //印出完整的Linked list
     Display(q);
 
-    ptr_switch(q, sw1, sw2);
     return 0;
 }
