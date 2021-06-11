@@ -49,8 +49,6 @@ int main(){
     //印出完整的Linked lists
     Display(q);
     
-    //cout<<"check blank";
-
     return 0;
 }
 
@@ -189,14 +187,15 @@ void ptr_sort(Queue &q)
 {
     node *n = q.front;//operation ptr
     node *m = q.front;//save position ptr
+    node *k = q.front;
+    node *d = q.rear;
     int size=q.size, temp=n->next->data;
-
     for(int i=1;i<size;i++)
     {
-
+        //cout<<" i = "<< i <<endl;
         int ps =i+1;
         n=m;
-        if(n->data <= n->next->data)
+        if(n->data<= n->next->data)
         {
             m=m->next;
             n=m;
@@ -205,12 +204,91 @@ void ptr_sort(Queue &q)
         n=n->next;
         while(n!=q.front && n->data < n->preverous->data)
         {
+            {cout<< "before\n";
+            cout<< "n = " << n <<endl;
+            cout<< "m = " << m <<endl;
+            cout<< "ps = "<< ps <<endl;
+            k =q.front;
+            d = q.rear;
+            for(int j=0;j<size;j++)
+            {
+                cout<<&k->data<<" ";
+                k= k->next;
+            }
+            cout<<endl;
+            for(int j=0;j<size;j++)
+            {
+                cout<<&d->data<<" ";
+                d = d->preverous;
+            }
+            cout<<endl;
+            }
+
             ptr_switch(q, ps, ps-1);
+
 
             ps= ps-1;
             
+            {cout<<"after\n";
+            cout<< "n = " << n <<endl;
+            cout<< "m = " << m <<endl;
+            cout<< "ps = "<< ps <<endl;
+            k =q.front;
+            d = q.rear;
+            for(int j=0;j<size;j++)
+            {
+                cout<<&k->data<<" ";
+                k= k->next;
+            }
+            cout<<endl;
+            for(int j=0;j<size;j++)
+            {
+                cout<<&d->data<<" ";
+                d = d->preverous;
+            }
+            cout<<endl;
+            }
             if(ps==1||n==q.front)break;
 
         }
+        cout<<"\nwhile over\n";
+        Display(q);
+        cout<<endl;
+        cout<<endl;
+
+        
+
+        /*int ps=i+1;
+        if(i!=1)
+        {
+            if(n->data> n->next->data)m=n;
+            else 
+            {
+                n = n->next;
+                m=n;
+                continue;
+            }
+            n = n->next;
+            while( (n!=q.front) && (n->preverous->data > n->data) )
+            {
+                ptr_switch(q, ps, ps-1);
+                ps-=1;
+                
+            }
+            
+            //if(m->next != q.rear){m=m->next;temp = m->next->data;}
+            //else break;
+            n=m;
+        }
+        else
+        {
+            if(n->data > temp)ptr_switch(q, i, i+1);
+            else
+            {
+                n=n->next;
+                }
+            temp = n->next->data;
+        }        
+    }*/
     }
 }
