@@ -1,19 +1,26 @@
+//Read file from command line.
+
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
 
 using namespace std;
 
-fstream ifp1;
+fstream ifp1;//File for input.
+fstream ofp1;//File for output.
+string ip_filename;//input file's name.
+string op_filename;//output file's name.
 
-void Read_file(int argc, char **argv);//Read file name form command line and open it.
-
+//Read file name form command line and open it.
+void Read_file(int argc, char **argv);
 
 int main(int argc, char **argv)
 {
     string test;
 
     Read_file(argc, argv);
+
+    cout<<"\n"<<op_filename<<endl;
 
     //Put the data of ifp1 on screen.
     while(ifp1>>test)
@@ -32,7 +39,7 @@ int main(int argc, char **argv)
 //Open the file, if not sending a error message.
 void Read_file(int argc, char **argv)
 {
-    string filename=argv[1];
+    ip_filename=argv[1];
     
     //If the command isn't fit the format,return a error message.
     //Telling user about the command format and usage.
@@ -44,13 +51,17 @@ void Read_file(int argc, char **argv)
     }
 
     //Open the file "ifp1" and set the open moduel "ios::in".
-    ifp1.open(filename, ios::in);
+    ifp1.open(ip_filename, ios::in);
 
     //Testing the file is opening successfully or not.
     if(!ifp1.is_open())
     {
-        cout<<"Error!! Can't open pattern file: "<<filename<<" !!!\n";
+        cout<<"Error!! Can't open pattern file: "<<ip_filename<<" !!!\n";
         exit(0);
+    }
+    else 
+    {
+        op_filename = ip_filename.substr(0,(ip_filename.length())-6)+".v";
     }
 
 }
