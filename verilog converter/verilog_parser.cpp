@@ -4,20 +4,19 @@
 
 using namespace std;
 
+ifstream ifp1;
+
 int main(int argc, char **argv)
 {
-    int test;
-    ifstream ifp1;
+    string test;
     string filename=argv[1];
     
     //If the command isn't fit the format,return a error message.
-    //Tell user about the command format and usage.
+    //Telling user about the command format and usage.
     if(argc!=2)
     {
         cout<<"\nUsage... \n";
-        cout<<".\\program file_name\n";
-        cout<<"Ex.\n";
-        cout<<".\\parser file_name\n\n";
+        cout<<".\\program file_name\n\n";
         exit(0);
     }
 
@@ -27,7 +26,7 @@ int main(int argc, char **argv)
     //Testing the file is opening successfully or not.
     if(!ifp1.is_open())
     {
-        cout<<"Erro!! Can't open pattern file: "<<filename<<" !!!\n";
+        cout<<"Error!! Can't open pattern file: "<<filename<<" !!!\n";
         exit(0);
     }
 
