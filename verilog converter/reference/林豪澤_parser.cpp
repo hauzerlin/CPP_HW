@@ -15,7 +15,7 @@ short wires[500];   //wiers[0] is the number of total wiers.
 short wire1[500];
 short wire2[500];
 
-void Open_file(void);//Cin a file name and open the file.
+void OPEN_file(void);//Cin a file name and open the file.
 void Read_input(void);//Read input file and save data in inputs[], outputs[], wires[], wire1[] and wire2[].
 void Write_output(void);//Write the data to output file.(converting)
 
@@ -25,7 +25,7 @@ int main()
 {
     string temp;
  
-    Open_file();
+    OPEN_file();
 
     Read_input();
 
@@ -39,7 +39,7 @@ int main()
 
 //Read file name from cin and open it.
 //If file isn't open then reply a error message.
-void Open_file(void)
+void OPEN_file(void)
 {
     //Input the file name and open it.
     cout<<"Please input file name: \n";

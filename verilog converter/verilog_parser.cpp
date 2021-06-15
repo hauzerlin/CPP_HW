@@ -11,8 +11,18 @@ fstream ofp1;//File for output.
 string ip_filename;//input file's name.
 string op_filename;//output file's name.
 
-//Read file name form command line and open it.
-void Read_file(int argc, char **argv);
+string operate;
+short inputs[2000]; //inputs[0] is the number of total inputs.
+short outputs[2000];//outputs[0] is the number of total outputs.
+short wires[500];   //wiers[0] is the number of total wiers.
+short wire1[500];
+short wire2[500];
+
+void Open_file(void);//Cin a file name and open the file.
+void Read_input(void);//Read input file and save data in inputs[], outputs[], wires[], wire1[] and wire2[].
+void Write_output(void);//Write the data to output file.(converting)
+
+bool belong_output(short);//To tell the wiers is belong outputs or not.
 
 int main(int argc, char **argv)
 {
