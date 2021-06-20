@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "passenger.h"
 using namespace std;
 
-//show the main menu.
+//show the main menu and options.
 void main_menu()
 {
     system("cls");
@@ -19,7 +21,7 @@ void main_menu()
     cout<<"Please type 7 to load data from a file\n";
 }
 
-//enter the type number.
+//enter the type number on main menu.
 short enter_type()
 {
     short type;
@@ -41,36 +43,72 @@ short enter_type()
     return type;
 }
 
-void new_reservation(passenger &psg)
+//when select type 1 at main menu, push a new reservation.
+void new_reservation(passenger &psg, bool seats[], bool record[])
 {
     string temp;
     long tmp;
-    short type;
+    short type, tmp2;
 
+    //enter first name.
     cout<<"Please enter passenger's first name: ";
     cin >> temp;
     psg.set_first(temp);
     
+    //enter last name.
     cout<<"Please enter passenger's last name: ";
     cin >> temp;
     psg.set_last(temp);
 
+    //enter "day of birth"
     cout<<"Please enter passenger's DOB: ";
     cin >> tmp;
     psg.set_DOB(tmp);
 
+    //enter passport number.
     cout<<"Please enter passenger's passport number: ";
     cin >> tmp;
     psg.set_passport_num(tmp);
 
+    //select type of seat
     cout<<"Please type 1 for First Class\n";
     cout<<"Please type 2 for Economy Class: ";
     cin>>type;
     psg.set_type(type);
-    
-    //cout<< "\n";
-    //psg.display_name();
-    //psg.display_data();
+
+    srand(time(0));
+
+    if(type == 1)
+    {
+        while(tmp2 = (rand()%4)+1)
+        {
+            if(!seats[tmp2])break;
+            else continue;
+        }
+        psg.set_seat(tmp2);
+
+    }
+    else
+    {
+         while(tmp2 = (rand()%6)+5)
+        {
+            if(!seats[tmp2])break;
+            else continue;
+        }
+        psg.set_seat(tmp2);
+    }
+
+    while(tmp2 = (rand()%10)+1)
+    {
+            if(!record[tmp2])break;
+            else continue;
+    }
+    psg.set_record(tmp2);
+    //prsent list
+
+    cout<< "*** The reservation is successfully made! ***\n";
+    psg.display_name();
+    psg.display_data();
 
 }
 

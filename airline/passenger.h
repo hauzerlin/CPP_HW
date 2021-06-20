@@ -19,6 +19,7 @@ class passenger
         long passport_num;
         short type;
         short seat_num;
+        short record;
 
     public:
         //passenger(string,string);
@@ -31,6 +32,7 @@ class passenger
         void set_passport_num(long);
         void set_type(short);
         void set_seat(short);
+        void set_record(short);
         void display_name();
         void display_data();
 };

@@ -8,10 +8,14 @@ using namespace std;
 //void set_passenger(string);
 void passenger::display_data()
 {
+    cout<<"Record Locator: "<<record<<endl;
+    display_name();
     cout<<"DOB: "<< DOB <<endl;
     cout<<"passport number: "<< passport_num <<endl;
-    cout<<"Seat type: "<< type <<endl;
-    cout<<"Seat number: "<< seat_num <<endl;
+    cout<<"Seat Type/Num: ";
+    if(type == 1)cout<<"First/";
+    else cout<<"economy/";
+    cout<<seat_num<<endl;
 }
 
 void passenger::display_name()
@@ -48,6 +52,11 @@ void passenger::set_type(short tp)
 void passenger::set_seat(short seat)
 {
     seat_num = seat;
+}
+
+void passenger::set_record(short rd)
+{
+    record = rd;
 }
 
 /*passenger::passenger(string first, string last)
