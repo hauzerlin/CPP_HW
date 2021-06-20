@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
-#include "airline.h"
+#include "passenger.h"
+#include "screen.h"
 
 using namespace std;
 
+short selection;
+
 int main()
 {
-    //list ps_list;
-
     string first = "lin", last = "haotse";
     passenger test(first, last);
 
@@ -18,8 +19,11 @@ int main()
 
     system("pause");
     system("cls");
-    cout<<"test line"<<endl;
-    cout<< main_menu() <<endl;
+    //cout<<"test line"<<endl;
+    main_menu();
+    selection = enter_type();
+
+    cout<< selection <<endl;
 
     return 0;
 }

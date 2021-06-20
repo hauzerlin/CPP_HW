@@ -1,8 +1,6 @@
 #include <string>
 using namespace std;
 
-short main_menu();
-
 /*class list
 {
     public:
@@ -26,7 +24,7 @@ class passenger
         passenger(string,string);
         passenger *next;
         passenger *preverous;
-        void add_passenger(list &l);
+        //void add_passenger(list &l);
         void set_name(string, string);
         void set_last(string);
         void set_DOB(int);
