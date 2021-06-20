@@ -21,11 +21,11 @@ class passenger
         short seat_num;
 
     public:
-        passenger(string,string);
-        passenger *next;
-        passenger *preverous;
+        //passenger(string,string);
+        //passenger *next;
+        //passenger *preverous;
         //void add_passenger(list &l);
-        void set_name(string, string);
+        void set_first(string);
         void set_last(string);
         void set_DOB(int);
         void set_passport_num(long);

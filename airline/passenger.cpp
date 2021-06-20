@@ -20,10 +20,14 @@ void passenger::display_name()
     cout<< last_name <<endl;
 }
 
-void passenger::set_name(string first, string last)
+void passenger::set_first(string first)
 {
     first_name = first;
-    last_name = last;
+}
+
+void passenger::set_last(string last)
+{
+        last_name = last;
 }
 
 void passenger::set_DOB(int dob)
@@ -46,11 +50,11 @@ void passenger::set_seat(short seat)
     seat_num = seat;
 }
 
-passenger::passenger(string first, string last)
+/*passenger::passenger(string first, string last)
 {
     first_name = first;
     last_name = last;
-}
+}*/
 
 
 

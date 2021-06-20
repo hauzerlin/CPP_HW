@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-#include "passenger.h"
-#include "screen.h"
+#include "airline.h"
 
 using namespace std;
 
@@ -9,21 +8,21 @@ short selection;
 
 int main()
 {
-    string first = "lin", last = "haotse";
-    passenger test(first, last);
+    passenger psg1;
 
-    test.display_name();
-
-    test.set_name("hello","world");
-    test.display_name();
-
-    system("pause");
-    system("cls");
-    //cout<<"test line"<<endl;
     main_menu();
-    selection = enter_type();
+    //selection = enter_type();
 
-    cout<< selection <<endl;
+    switch(selection = enter_type())
+    {
+        case 1:
+        new_reservation(psg1);
+        break;
+
+
+    }
+
+    //cout<< selection <<endl;
 
     return 0;
 }

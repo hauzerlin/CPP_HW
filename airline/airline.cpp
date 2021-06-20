@@ -2,9 +2,7 @@
 #include "passenger.h"
 using namespace std;
 
-void main_menu();
-
-
+//show the main menu.
 void main_menu()
 {
     system("cls");
@@ -21,6 +19,7 @@ void main_menu()
     cout<<"Please type 7 to load data from a file\n";
 }
 
+//enter the type number.
 short enter_type()
 {
     short type;
@@ -41,3 +40,37 @@ short enter_type()
     }
     return type;
 }
+
+void new_reservation(passenger &psg)
+{
+    string temp;
+    long tmp;
+    short type;
+
+    cout<<"Please enter passenger's first name: ";
+    cin >> temp;
+    psg.set_first(temp);
+    
+    cout<<"Please enter passenger's last name: ";
+    cin >> temp;
+    psg.set_last(temp);
+
+    cout<<"Please enter passenger's DOB: ";
+    cin >> tmp;
+    psg.set_DOB(tmp);
+
+    cout<<"Please enter passenger's passport number: ";
+    cin >> tmp;
+    psg.set_passport_num(tmp);
+
+    cout<<"Please type 1 for First Class\n";
+    cout<<"Please type 2 for Economy Class: ";
+    cin>>type;
+    psg.set_type(type);
+    
+    //cout<< "\n";
+    //psg.display_name();
+    //psg.display_data();
+
+}
+
