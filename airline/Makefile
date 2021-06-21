@@ -6,7 +6,7 @@ airline:$(OBJECTS)
 passenger.o:  passenger.cpp passenger.h
 	g++ -c passenger.cpp 
 
-Reservation_system.o: Reservation_system.cpp passenger.h
+Reservation_system.o: Reservation_system.cpp passenger.h airline.h
 	g++ -c Reservation_system.cpp 
 
 airline.o: airline.cpp airline.h

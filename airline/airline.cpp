@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <conio.h>
 #include "passenger.h"
 using namespace std;
 
@@ -44,8 +45,10 @@ short enter_type()
 }
 
 //when select type 1 at main menu, push a new reservation.
-void new_reservation(passenger &psg, bool seats[], bool record[])
+void new_reservation(list &ls, bool seats[], bool record[])
 {
+    passenger *psg = new passenger;
+    ls.Push(psg);
     string temp;
     long tmp;
     short type, tmp2;
@@ -53,28 +56,28 @@ void new_reservation(passenger &psg, bool seats[], bool record[])
     //enter first name.
     cout<<"Please enter passenger's first name: ";
     cin >> temp;
-    psg.set_first(temp);
+    psg->set_first(temp);
     
     //enter last name.
     cout<<"Please enter passenger's last name: ";
     cin >> temp;
-    psg.set_last(temp);
+    psg->set_last(temp);
 
     //enter "day of birth"
     cout<<"Please enter passenger's DOB: ";
     cin >> tmp;
-    psg.set_DOB(tmp);
+    psg->set_DOB(tmp);
 
     //enter passport number.
     cout<<"Please enter passenger's passport number: ";
     cin >> tmp;
-    psg.set_passport_num(tmp);
+    psg->set_passport_num(tmp);
 
     //select type of seat
     cout<<"Please type 1 for First Class\n";
     cout<<"Please type 2 for Economy Class: ";
     cin>>type;
-    psg.set_type(type);
+    psg->set_type(type);
 
     srand(time(0));
 
@@ -85,7 +88,7 @@ void new_reservation(passenger &psg, bool seats[], bool record[])
             if(!seats[tmp2])break;
             else continue;
         }
-        psg.set_seat(tmp2);
+        psg->set_seat(tmp2);
 
     }
     else
@@ -95,7 +98,7 @@ void new_reservation(passenger &psg, bool seats[], bool record[])
             if(!seats[tmp2])break;
             else continue;
         }
-        psg.set_seat(tmp2);
+        psg->set_seat(tmp2);
     }
 
     while(tmp2 = (rand()%10)+1)
@@ -103,12 +106,19 @@ void new_reservation(passenger &psg, bool seats[], bool record[])
             if(!record[tmp2])break;
             else continue;
     }
-    psg.set_record(tmp2);
+    psg->set_record(tmp2);
     //prsent list
 
     cout<< "*** The reservation is successfully made! ***\n";
-    psg.display_name();
-    psg.display_data();
+    psg->display_data();
+    //cout<<"\n\n";
+
+    getch();
 
 }
 
+void exit_system()
+{
+    cout<<"Thank you for using our system\n";
+    cout<<"Have a nice trip~~";
+}

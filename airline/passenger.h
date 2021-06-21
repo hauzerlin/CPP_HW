@@ -1,31 +1,41 @@
 #include <string>
 using namespace std;
 
-/*class list
+class passenger;
+class list;
+
+class list 
 {
     public:
-    passenger *first;
-    passenger *rear;
-    short psg_num;
+        void init();//inital list in main function.
+        void POP(passenger *);//delete specific passenger.
+        void Push(passenger *);//add passenger in list.
+        void Display_list();//show all the passenger.
+        bool exist(short rd);
+    private:
+        passenger *first;
+        passenger *rear;
+        short psg_num;
 
-};*/
+};
 
 class passenger
 {
     private:
-        string first_name;
-        string last_name;
+
         int DOB;
         long passport_num;
         short type;
         short seat_num;
-        short record;
 
     public:
-        //passenger(string,string);
-        //passenger *next;
-        //passenger *preverous;
-        //void add_passenger(list &l);
+        string first_name;
+        string last_name;
+        short record;
+
+        passenger *next;
+        passenger *preverous;
+
         void set_first(string);
         void set_last(string);
         void set_DOB(int);
