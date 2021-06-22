@@ -16,6 +16,7 @@ int main()
     record[10] = {0};
     passenger psg1;
 
+    system("cls");
     //main_menu();
     //selection = enter_type();
     while(selection!=6)
@@ -30,11 +31,20 @@ int main()
             List.Display_list();
             break;
 
+            case 4:
+            print_record(List);
+            break;
+
+            case 5:
+            break;
 
             case 6:
             exit_system();
             break;
 
+            case 7:
+            read_from_file(List);
+            break;
 
         }
     }

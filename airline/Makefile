@@ -1,4 +1,4 @@
-OBJECTS = passenger.o Reservation_system.o airline.o
+OBJECTS = passenger.o Reservation_system.o airline.o check.o
 
 airline:$(OBJECTS)
 	g++ -o airline $(OBJECTS)
@@ -11,3 +11,6 @@ Reservation_system.o: Reservation_system.cpp passenger.h airline.h
 
 airline.o: airline.cpp airline.h
 	g++ -c airline.cpp
+
+check.o: check.cpp check.h
+	g++ -c check.cpp

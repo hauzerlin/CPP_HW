@@ -11,7 +11,8 @@ class list
         void POP(passenger *);//delete specific passenger.
         void Push(passenger *);//add passenger in list.
         void Display_list();//show all the passenger.
-        bool exist(short rd);
+        void boarding_pass(short rd);
+        bool rd_exist(short rd);
     private:
         passenger *first;
         passenger *rear;
@@ -23,7 +24,7 @@ class passenger
 {
     private:
 
-        int DOB;
+        long DOB;
         long passport_num;
         short type;
         short seat_num;
@@ -43,6 +44,12 @@ class passenger
         void set_type(short);
         void set_seat(short);
         void set_record(short);
+
+        int return_dob();
+        long return_passport_num();
+        short return_type();
+        short return_seat_num();
+
         void display_name();
         void display_data();
 };

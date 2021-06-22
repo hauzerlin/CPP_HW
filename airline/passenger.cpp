@@ -1,13 +1,12 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <conio.h>
 #include "passenger.h"
 
 using namespace std;
 
-//void list::Push(list &ls);
-//void passenger::add_passenger(list &l);
-//void set_passenger(string);
+//passenger class's function
 void passenger::display_data()
 {
     cout<<"Record Locator: "<<record<<endl;
@@ -41,26 +40,40 @@ void passenger::set_DOB(int dob)
     DOB = dob;
 }
 
+int passenger::return_dob()
+{return DOB;}
+
 void passenger::set_passport_num(long  ps_num)
 {
     passport_num = ps_num;
 }
+
+long passenger::return_passport_num()
+{return passport_num;}
 
 void passenger::set_type(short tp)
 {
     type = tp;
 }
 
+short passenger::return_type()
+{return type;}
+
 void passenger::set_seat(short seat)
 {
     seat_num = seat;
 }
+
+short passenger::return_seat_num()
+{return seat_num;}
 
 void passenger::set_record(short rd)
 {
     record = rd;
 }
 
+
+//list class's function
 void list::init()
 {
     first = rear = NULL;
@@ -107,7 +120,7 @@ void list::Push(passenger *psg)
     //n->data = v;
     psg->next = NULL;
     psg->preverous = NULL;
-    if(first == NULL)    //queue是空的
+    if(first == NULL)    //list是空的
     {
         first = rear = psg;
     }
@@ -115,14 +128,14 @@ void list::Push(passenger *psg)
     {
         psg->preverous = rear;
         rear->next = psg;      //先將尾巴接上去
-        rear = psg;            //再將queue的尾巴移到正確位置
+        rear = psg;            //再將list的尾巴移到正確位置
     }
     psg_num++;
 }
 
 void list::Display_list()//print all passenger information.
 {
-    passenger *psg = first;
+    passenger *psg = first;//locate ptr to target passenger
     for (int i = 0; i<psg_num; i++)
     {
 
@@ -134,48 +147,39 @@ void list::Display_list()//print all passenger information.
     getch();
 }
 
-bool list::exist(short rd)//use record number to search list if passenger in or not.
+void list::boarding_pass(short rd)
+{
+    //search list and locate the ptr on target passenger.
+    passenger *ptr=first;
+    for(int i=1;i<psg_num;i++,ptr=ptr->next)
+    {
+        if(ptr->record!=rd)continue;
+        break;
+    }
+
+    //Print out the Boarding Pass for record
+    for(int i=0;i<55;i++)cout<<"*";
+    cout<<"\n*                    Boarding Pass                    *"<<endl;
+    cout<<"*Name: "<<setw(47)<<left<<((ptr->first_name)+" "+(ptr->last_name))<<"*\n";
+    cout<<"*Record Locator: "<<setw(37)<<(ptr->record)<<"*\n";
+    
+    if(ptr->return_type() == 1)
+    cout<<"*Seat: First/"<<setw(41)<<ptr->return_seat_num()<<"*"<<endl;
+    else 
+    cout<<"Seat: Economy/"<<setw(40)<<ptr->return_seat_num()<<"*"<<endl;
+    
+    for(int i=0;i<55;i++)cout<<"*";
+
+    getch();
+}
+
+bool list::rd_exist(short rd)//use record number to search list if passenger in or not.
 {
     passenger *ptr=first;
     for(int i=0;i<psg_num;i++,ptr=ptr->next)
     {
         if(ptr->record != rd)continue;
-        else return true;
+        return true;
     }
     return false;
 }
-
-/*passenger::passenger(string first, string last)
-{
-    first_name = first;
-    last_name = last;
-}*/
-
-
-
-/*void passenger::add_passenger(list &l)
-{
-    passenger *psg = new passenger;
-    psg->next = NULL;
-    if(l.first == NULL)
-    {
-        l.first = l.rear = psg;
-    }
-    else
-    {
-        psg->preverous = l.rear;
-        l.rear->next = psg;
-        l.rear = psg;
-    }
-    l.psg_num++;
-}*/
-
-/*void set_first(string first)
-{
-    passenger.first_name = first;
-    //passenger.last_name = last;
-    //passenger.DOB = dob;
-    //passenger.passport_num = pass_num;
-    //passenger.type = type;
-}*/
-
