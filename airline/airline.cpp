@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <cstdlib>
 #include <stdio.h>
 #include <fstream>
@@ -20,8 +21,6 @@ inline void err_reservation()
 //show the main menu and options.
 void main_menu()
 {
-    //system("cls");
-
     cout<<"*** Welcome to NCU airline reservation system ***\n";
     for(int i=0;i<49;i++)cout<<"=";
     cout<<endl;
@@ -43,7 +42,7 @@ short enter_type()
 
     while(cin>>type)
     {
-        if(type<=7&&type>=1)
+        if(type<=10&&type>=1)
         {
             for(int i=0;i<49;i++)cout<<"=";
             cout<<endl;
@@ -84,9 +83,11 @@ void new_reservation(list &ls, bool seats[], bool record[])
     cout<<"Please enter passenger's DOB: ";
     while(cin >> dob)
     {
-        ltoa(tmp, tmp2, 10);
+        /*int test=dob/10000000;
+        if(test<1||test>9)*/
+        itoa(dob, tmp2, 10);
         string save(tmp2);
-        if(save.length()!=8)
+        if(save.length()!= 8)
         {
             cerr<<"Wrong format! \nPlease enter passenger's DOB again: ";
             continue;
@@ -97,7 +98,6 @@ void new_reservation(list &ls, bool seats[], bool record[])
 
     //enter passport number.
     cout<<"Please enter passenger's passport number: ";
-    //cin >> tmp;
     while(cin >> tmp)
     {
         ltoa(tmp, tmp2, 10);
@@ -115,37 +115,28 @@ void new_reservation(list &ls, bool seats[], bool record[])
     cout<<"Please type 1 for First Class\n";
     cout<<"Please type 2 for Economy Class: ";
     cin>>type;
-    psg->set_type(type);
-
 
     if(type == 1)//if first class is secelted.
     {
-        //check if first class seats is available, assign seat for this passenger.
         if(!first_full(seats))assign_first(psg, seats);
-        else if(!economy_full(seats))//if economy class is still available, ask to chage to economy class seat.
+        else if(!economy_full(seats))
         {
             //if "yes" is taken, assign a economy class seat.
             if(ask_change(2)==1)assign_economy(psg, seats);
             else {err_reservation();return;}
         }
-        else {err_reservation();return;} //if first class and economy class all full. Print error message.
+        else {err_reservation();return;} 
     }
     else if(type == 2)//if economy class is secelted.
     {
-        if(!economy_full(seats))assign_economy(psg, seats);//check if economy class is available, assign a seat for this passenger.
-        else if(!first_full(seats)) //if fist class is available, ask to change to fist class seat.
+        if(!economy_full(seats))assign_economy(psg, seats);
+        else if(!first_full(seats)) 
         {
             //if "yes" is taken, assign a first class seat.
             if(ask_change(1)==1)assign_first(psg, seats);
             else {err_reservation();return;}
         }
         else {err_reservation();return;}
-        /*{
-            cerr<<"No available seats and your reservation is not successfully made\n";
-            cout<<"\n\n";
-            getch();
-            return;
-        }*/
     }
 
     //Set up passenger's record locator.
@@ -163,6 +154,62 @@ void new_reservation(list &ls, bool seats[], bool record[])
 
 }
 
+void cancel_reservation(list &ls, bool seats[], bool record[])
+{
+    short rd;
+    string test;
+    passenger *ptr=ls.first;
+    cout<<"Please enter record locator: ";
+    cin>>rd;
+    cout<<"Please enter the first name of the psg:";
+    cin>>test;
+
+    ptr= locate_rd(ls, ptr, rd);
+
+    if(ptr->record != rd)//can't find the rd.
+    {
+        cout<<"“The record locator does not exist\n\n"<<endl;    
+        getch();
+        return;
+    }
+    else if(test!=ptr->first_name)//can't match the first name,
+    {
+        cerr<<"The first name and the record locator is not matched\n\n"<<endl;
+        getch();
+        return;
+    }
+    else //all match, check to cancel the reservation.
+    {
+        cerr<<"*** The reservation is successfully found! ***"<<endl;
+        ptr->display_data();
+        cerr<<"Are you sure to cancel the above reservation?(Y/N)";
+        cin>>test;
+        if(test[0]=='y'||test[0]=='Y')
+        {
+            seats[ptr->return_seat_num()-1]=0;
+            record[ptr->record-1]=0;
+            ls.POP(ptr);
+
+            cerr<<"The reservation is successfully cancelled...\n\n"<<endl;
+            getch();
+        }
+        else return;
+    }
+    
+    
+}
+
+void show_book_status(list &ls, bool seats[], bool record[])
+{
+    for(int i=0;i<55;i++)cout<<"*";cout<<endl;
+    cout<<"Seat capacity:"<<endl;
+    cout<<setw(15)<<"Sold";
+    cout<<setw(16)<<"Available";
+    cout<<setw(12)<<"Total"<<endl;
+
+}
+
+
 //when select type 4 at main menu, print record on screen.
 void print_record(list& ls)
 {   
@@ -176,7 +223,7 @@ void print_record(list& ls)
         cin>>rd;
     }
     ls.boarding_pass(rd);
-    cout<<"\n\n";
+    cout<<"\n\n\n";
 
 }
 
@@ -185,9 +232,10 @@ void exit_system()
 {
     cout<<"Thank you for using our system\n";
     cout<<"Have a nice trip~~";
+    cout<<"\n\n\n";
 }
 
-void read_from_file(list &ls)
+void read_from_file(list &ls, bool seats[], bool record[])
 {
     ifstream psg_in;
     string filename;
@@ -196,44 +244,14 @@ void read_from_file(list &ls)
     cout<<"Please enter the file name: ";
     cin>>filename;
     psg_in.open(filename, ios::binary | ios::in);
-    if(!psg_in.is_open())// && filename.substr(0,1) != '6'
+    if(!psg_in.is_open())
     {
         cerr<<"The file "<< filename <<"does not exist.\n";
         cout<<"\n\n";
         return;
-        //cerr<<"Error! Can't open the file "<< filename <<" !\n";
-        //cerr<<"Please enter again: ";//enter 6 to exit 
-        //cin>>filename;
     }
 
     psg_in.seekg(65, ios::beg);
-    /*
-    string tmp;
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-    
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-    
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-    
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-    
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-
-    psg_in>>tmp;
-    cout<<"test: "<<tmp<<endl;
-
-    cout<<static_cast<int>('\r');*/
-
-    //cout<< "next char: " << psg_in.peek() <<endl;
-    
     while(psg_in.peek()!=EOF)
     {
         passenger *in = new passenger;
@@ -246,39 +264,103 @@ void read_from_file(list &ls)
         short type, seat_num, rd;
 
         psg_in>>rd;
-        //cout<<rd<<endl;
-        in->set_record(rd);
+        if(!record[rd-1]){in->set_record(rd);record[rd-1]=1;}
+        else if(record[rd-1] && !record_full(record))
+        {
+            cerr<<"!Warning: The RR "<< rd <<"in file ...\n";
+            cerr<<"The record locator"<< rd <<" is already used\n";
+            assign_record(in,record);
+            cerr<<"The record with RR "<< rd <<" in the file is update to ";
+            cerr<< in->record <<".\n";
+        }
+        else 
+        {
+            cerr<<"No more seat is available/0\n";
+            return;
+        }
 
         psg_in>>tmp;
-        //cout<<tmp<<endl;
         in->set_first(tmp);
 
         psg_in>>tmp;
-        //cout<<tmp<<endl;
         in->set_last(tmp);
 
         psg_in>>dob;
-        //cout<<dob<<endl;
         in->set_DOB(dob);
 
         psg_in>>ps_num;
-        //cout<<ps_num<<endl;
         in->set_passport_num(ps_num);
 
         psg_in>>tmp;
-        //cout<<tmp<<endl;
-        if(tmp[0]=='F')in->set_type(1);
-        else in->set_type(2);
+        if(tmp[0]=='F')
+        {   
+            if(!first_full(seats))
+            {
+                in->set_type(1);
+                psg_in>>seat_num;
+                if(seats[seat_num-1])assign_first(in, seats);
+                seats[seat_num-1]=1;
+                in->set_seat(seat_num);
 
-        psg_in>>seat_num;
-        //cout<<seat_num<<endl;
-        in->set_seat(seat_num);
-
-        //psg_in.seekg(3, ios::cur);
-
+            }
+            else if(ask_change(2)==1)
+            {
+                in->set_type(2);
+                assign_first(in, seats);
+            }
+            else 
+            {
+                cerr<<"No more seat is available/0\n";
+                return;
+            }
+        }
+        else
+        {   
+            if(!economy_full(seats))
+            {
+                in->set_type(2);
+                psg_in>>seat_num;
+                if(seats[seat_num-1])assign_economy(in, seats);
+                seats[seat_num-1]=1;
+                in->set_seat(seat_num);
+            }
+            else if(ask_change(1)==1)
+            {
+                in->set_type(1);
+                assign_economy(in, seats);
+            }
+            else 
+            {
+                cerr<<"No more seat is available/0\n";
+                return;
+            }
+        }
+        
     }    
 
+    psg_in.close();
+
     cout<<"The booking record is successfully saved to the file";
+    cout<<"\n\n";
+
+}
+
+void check_list(bool seats[], bool record[])
+{
+    for(int i=0;i<10;i++)
+    {
+        cout<<"seats["<<i<<"]: "<<seats[i]<<"  ";
+        if(i==4)cout<<"\n";
+    }
+
+    cout<<"\n\n";
+
+    for(int i=0;i<10;i++)
+    {
+        cout<<"record["<<i<<"]: "<< record[i] <<"  ";
+        if(i==4)cout<<"\n";
+    }
+    
     cout<<"\n\n";
 
 }

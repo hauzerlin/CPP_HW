@@ -1,5 +1,5 @@
 RR  Name           DOB          PassPort#       Class       Seat
 1   Roger Chen     19870401     375358487       First       3
 9   Alan Lin       19871002     387558487       First       1
-5   Allen Huang    19980617     375338487       Economy     5
-6   Gina Chang     19971118     376128488       Economy     6
+5   Allen Huang    19980617     375338487       First     2
+6   Gina Chang     19971118     376128488       First     4

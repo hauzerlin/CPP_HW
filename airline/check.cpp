@@ -50,6 +50,7 @@ void assign_first(passenger* ptr,bool seats[])
         else break;
     }
     ptr->set_seat(tmp);
+    ptr->set_type(1);
     seats[tmp-1]=true;
 }
 
@@ -64,6 +65,7 @@ void assign_economy(passenger *ptr, bool seats[])
         else break;
     }
     ptr->set_seat(tmp);
+    ptr->set_type(2);
     seats[tmp-1]=true;
 }
 
@@ -112,3 +114,34 @@ int ask_change(int switch_to)
     }
     return -1;
 }
+
+passenger *locate_rd(list ls, passenger* rd_ptr, short rd)
+{
+    rd_ptr = ls.first;
+    for(int i=0;i<ls.psg_num-1;i++, rd_ptr=rd_ptr->next)
+    {
+        if(rd_ptr->record != rd)continue;
+        return rd_ptr;
+    }
+    return rd_ptr;
+}
+
+/*void check_list(bool seats[], bool record[])
+{
+    for(int i=0;i<10;i++)
+    {
+        cout<<"seats["<<i<<"]: "<<seats[i]<<"  ";
+        if(i==4)cout<<"\n";
+    }
+
+    cout<<"\n\n";
+
+    for(int i=0;i<10;i++)
+    {
+        cout<<"record["<<i<<"]: "<< record[i] <<"  ";
+        if(i==4)cout<<"\n";
+    }
+    
+    cout<<"\n\n";
+
+}*/

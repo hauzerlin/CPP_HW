@@ -10,3 +10,7 @@ int ask_change(int);
 void assign_first(passenger*,bool[]);
 void assign_economy(passenger*,bool[]);
 void assign_record(passenger*,bool[]);
+
+passenger *locate_rd(list, passenger*, short);
+
+//void check_list(bool [], bool []);

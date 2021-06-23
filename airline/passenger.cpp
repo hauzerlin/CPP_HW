@@ -15,7 +15,7 @@ void passenger::display_data()
     cout<<"passport number: "<< passport_num <<endl;
     cout<<"Seat Type/Num: ";
     if(type == 1)cout<<"First/";
-    else cout<<"economy/";
+    else cout<<"Economy/";
     cout<<seat_num<<endl;
 }
 
@@ -80,7 +80,7 @@ void list::init()
     psg_num = 0;
 }
 
-void list::POP(passenger* d_psg)
+void list::POP(passenger* const d_psg)
 {
     passenger *save;
 
@@ -112,6 +112,7 @@ void list::POP(passenger* d_psg)
         psg_num--;
     }
 
+    delete d_psg;
 }
 
 void list::Push(passenger *psg)

@@ -8,15 +8,15 @@ class list
 {
     public:
         void init();//inital list in main function.
-        void POP(passenger *);//delete specific passenger.
+        void POP(passenger* const );//delete specific passenger.
         void Push(passenger *);//add passenger in list.
         void Display_list();//show all the passenger.
         void boarding_pass(short rd);
         bool rd_exist(short rd);
-    private:
         passenger *first;
         passenger *rear;
         short psg_num;
+    private:
 
 };
 

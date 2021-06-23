@@ -17,8 +17,7 @@ int main()
     passenger psg1;
 
     system("cls");
-    //main_menu();
-    //selection = enter_type();
+
     while(selection!=6)
     {
         switch( main_menu(),selection = enter_type())
@@ -27,8 +26,12 @@ int main()
             new_reservation(List, seats, record);
             break;
 
+            case 2:
+            cancel_reservation(List, seats, record);
+            break;
+
             case 3:
-            List.Display_list();
+            show_book_status(List, seats, record);
             break;
 
             case 4:
@@ -43,12 +46,17 @@ int main()
             break;
 
             case 7:
-            read_from_file(List);
+            read_from_file(List, seats, record);
             break;
+
+            case 8:
+            check_list(seats, record);
+            break;
+
+            case 9:
+            List.Display_list();
 
         }
     }
-    //cout<< selection <<endl;
-
     return 0;
 }
