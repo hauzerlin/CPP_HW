@@ -49,13 +49,13 @@ int main()
             read_from_file(List, seats, record);
             break;
 
-            case 8:
+            /*case 8:
             check_list(seats, record);
             break;
 
             case 9:
             List.Display_list();
-            break;
+            break;*/
 
         }
     }

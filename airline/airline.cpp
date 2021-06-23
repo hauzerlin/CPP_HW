@@ -42,7 +42,7 @@ short enter_type()
 
     while(cin>>type)
     {
-        if(type<=10&&type>=1)
+        if(type<=7&&type>=1)
         {
             for(int i=0;i<49;i++)cout<<"=";
             cout<<endl;
@@ -154,6 +154,7 @@ void new_reservation(list &ls, bool seats[], bool record[])
 
 }
 
+//when select type 2, remove a passenger form list.
 void cancel_reservation(list &ls, bool seats[], bool record[])
 {
     short rd;
@@ -201,9 +202,10 @@ void cancel_reservation(list &ls, bool seats[], bool record[])
     
 }
 
+//when select type 3, show booking status with form.
 void show_book_status(list &ls, bool seats[], bool record[])
 {
-    for(int i=0;i<55;i++)cout<<"*";cout<<endl;
+    for(int i=0;i<49;i++)cout<<"*";cout<<endl;
     cout<<"Seat capacity:"<<endl;
     cout<<setw(15)<<right<<"Sold";
     cout<<setw(16)<<"Available";
@@ -218,8 +220,7 @@ void show_book_status(list &ls, bool seats[], bool record[])
     cout<<setw(5)<<right<<economy_left(seats);
     cout<<setw(16)<<(6-economy_left(seats));
     cout<<setw(12)<<"6"<<endl;
-    cout<<endl;
-    for(int i=0;i<55;i++)cout<<"*";cout<<endl;
+    for(int i=0;i<49;i++)cout<<"*";cout<<endl;
 
     cout<<"\n\n";
     getch();
@@ -231,15 +232,24 @@ void print_record(list& ls)
     short rd;
     cout<<"Please enter record locator: ";
     cin>>rd;
-    while(!ls.rd_exist(rd))
+  
+    
+    if(!ls.rd_exist(rd))
     {
-        cout<<"The record locator you entered is wrong!\n";
-        cout<<"Please enter your record locator again: ";
-        cin>>rd;
+        cerr<<"The record locator cannot be found"<<endl;
+        cout<<"\n\n";
+        return;
     }
+
     ls.boarding_pass(rd);
     cout<<"\n\n\n";
     getch();
+}
+
+//when select type 5 at main manu, generate a file to save list data.
+void save_to_file(list& ls, bool seats[], bool record[])
+{
+    
 }
 
 //when select type 6 at main menu, exit the system.
@@ -250,6 +260,7 @@ void exit_system()
     cout<<"\n\n\n";
 }
 
+//when select type 7 at main menu, read file to add passenger data.
 void read_from_file(list &ls, bool seats[], bool record[])
 {
     ifstream psg_in;
@@ -360,6 +371,8 @@ void read_from_file(list &ls, bool seats[], bool record[])
 
 }
 
+
+//a function to check list.
 void check_list(bool seats[], bool record[])
 {
     for(int i=0;i<10;i++)
