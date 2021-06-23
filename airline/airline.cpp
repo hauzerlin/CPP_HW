@@ -161,18 +161,20 @@ void cancel_reservation(list &ls, bool seats[], bool record[])
     passenger *ptr=ls.first;
     cout<<"Please enter record locator: ";
     cin>>rd;
-    cout<<"Please enter the first name of the psg:";
-    cin>>test;
 
     ptr= locate_rd(ls, ptr, rd);
 
     if(ptr->record != rd)//can't find the rd.
     {
-        cout<<"“The record locator does not exist\n\n"<<endl;    
+        cout<<"The record locator does not exist\n\n"<<endl;    
         getch();
         return;
     }
-    else if(test!=ptr->first_name)//can't match the first name,
+    
+    cout<<"Please enter the first name of the psg:";
+    cin>>test;
+    
+    if(test!=ptr->first_name)//can't match the first name,
     {
         cerr<<"The first name and the record locator is not matched\n\n"<<endl;
         getch();
@@ -203,12 +205,25 @@ void show_book_status(list &ls, bool seats[], bool record[])
 {
     for(int i=0;i<55;i++)cout<<"*";cout<<endl;
     cout<<"Seat capacity:"<<endl;
-    cout<<setw(15)<<"Sold";
+    cout<<setw(15)<<right<<"Sold";
     cout<<setw(16)<<"Available";
     cout<<setw(12)<<"Total"<<endl;
 
-}
+    cout<<setw(10)<<left<<"First";
+    cout<<setw(5)<<right<<first_left(seats);
+    cout<<setw(16)<<(4-first_left(seats));
+    cout<<setw(12)<<"4"<<endl;
 
+    cout<<setw(10)<<left<<"Economy";
+    cout<<setw(5)<<right<<economy_left(seats);
+    cout<<setw(16)<<(6-economy_left(seats));
+    cout<<setw(12)<<"6"<<endl;
+    cout<<endl;
+    for(int i=0;i<55;i++)cout<<"*";cout<<endl;
+
+    cout<<"\n\n";
+    getch();
+}
 
 //when select type 4 at main menu, print record on screen.
 void print_record(list& ls)
@@ -224,7 +239,7 @@ void print_record(list& ls)
     }
     ls.boarding_pass(rd);
     cout<<"\n\n\n";
-
+    getch();
 }
 
 //when select type 6 at main menu, exit the system.
@@ -340,7 +355,7 @@ void read_from_file(list &ls, bool seats[], bool record[])
 
     psg_in.close();
 
-    cout<<"The booking record is successfully saved to the file";
+    cout<<"The booking record is successfully saved to the file\n";
     cout<<"\n\n";
 
 }

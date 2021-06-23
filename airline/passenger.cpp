@@ -171,7 +171,7 @@ void list::boarding_pass(short rd)
     
     for(int i=0;i<55;i++)cout<<"*";
 
-    getch();
+    
 }
 
 bool list::rd_exist(short rd)//use record number to search list if passenger in or not.

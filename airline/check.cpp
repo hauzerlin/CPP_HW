@@ -145,3 +145,43 @@ passenger *locate_rd(list ls, passenger* rd_ptr, short rd)
     cout<<"\n\n";
 
 }*/
+
+short first_left(bool seats[])
+{
+    short total=0;
+    for(int i=0;i<4;i++)
+    {
+        if(seats[i])total++;
+    }
+    return total;
+}
+
+short economy_left(bool seats[])
+{
+    short total=0;
+    for(int i=4;i<10;i++)
+    {
+        if(seats[i])total++;
+    }
+    return total;
+}
+
+short seats_left(bool seats[])
+{
+    short total=0;
+    for(int i=0;i<10;i++)
+    {
+        if(seats[i])total++;
+    }
+    return total;
+}
+
+short record_left(bool record[])
+{
+    short total=0;
+    for(int i=0;i<10;i++)
+    {
+        if(record[i])total++;
+    }
+    return total;
+}

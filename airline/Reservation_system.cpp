@@ -55,6 +55,7 @@ int main()
 
             case 9:
             List.Display_list();
+            break;
 
         }
     }

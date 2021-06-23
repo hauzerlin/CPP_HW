@@ -14,3 +14,7 @@ void assign_record(passenger*,bool[]);
 passenger *locate_rd(list, passenger*, short);
 
 //void check_list(bool [], bool []);
+short first_left(bool[]);
+short economy_left(bool[]);
+short seats_left(bool[]);
+short record_left(bool[]);
