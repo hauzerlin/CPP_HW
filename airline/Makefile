@@ -1,16 +1,25 @@
-OBJECTS = passenger.o Reservation_system.o airline.o check.o
+OBJECTS = ./obj/passenger.o ./obj/Reservation_system.o ./obj/airline.o ./obj/check.o
+HEAD_PATH = -I ./header
+OBJ_PATH = ./obj/
+
+VPATH = ./src: ./header
+vpath %.cpp src
+vpath %.o obj
 
 airline:$(OBJECTS)
 	g++ -o airline $(OBJECTS)
 
 Reservation_system.o: Reservation_system.cpp passenger.h airline.h
-	g++ -c Reservation_system.cpp 
+	g++ $(HEAD_PATH) -c ./src/Reservation_system.cpp
 
 airline.o: airline.cpp airline.h
-	g++ -c airline.cpp
+	g++ $(HEAD_PATH) -c ./src/airline.cpp
 
 passenger.o:  passenger.cpp passenger.h
-	g++ -c passenger.cpp 
+	g++ $(HEAD_PATH) -c ./src/passenger.cpp
 
 check.o: check.cpp check.h
-	g++ -c check.cpp
+	g++ $(HEAD_PATH) -c ./src/check.cpp
+
+clean:
+	del $(OBJECTS)

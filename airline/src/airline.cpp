@@ -42,7 +42,7 @@ short enter_type()
 
     while(cin>>type)
     {
-        if(type<=7&&type>=1)
+        if(type<=10&&type>=1)
         {
             for(int i=0;i<49;i++)cout<<"=";
             cout<<endl;
@@ -247,9 +247,60 @@ void print_record(list& ls)
 }
 
 //when select type 5 at main manu, generate a file to save list data.
-void save_to_file(list& ls, bool seats[], bool record[])
+void save_to_file(list& list, bool seats[], bool record[])
 {
+    fstream psg_out;
+    string filename;
+    passenger *ptr=list.first;
+
+    cerr<<"Please enter file name:";
+    cin>>filename;
+    psg_out.open(filename, ios::in| ios::binary);
+    if(!psg_out.is_open())
+    {
+        cerr<<"The file "<< filename <<" does not exist.\n\n\n";
+        getch();
+        return;
+    }
+    psg_out.close();
+    psg_out.open(filename, ios::out| ios::binary | ios::trunc);
     
+
+    psg_out.seekp(0, ios::beg);
+    psg_out<<setw(4)<<left<<"RR";
+    psg_out<<setw(15)<<"Name";
+    psg_out<<setw(13)<<"DOB";
+    psg_out<<setw(16)<<"PassPort#";
+    psg_out<<setw(12)<<"Class";
+    psg_out<<setw(4)<<"Seat";
+
+    psg_out<<"\n";
+
+    while(true)
+    {
+        psg_out<<setw(4)<<ptr->record;
+        psg_out<<setw(15)<<(ptr->first_name+" "+ptr->last_name);
+        psg_out<<setw(13)<<ptr->return_dob();
+        psg_out<<setw(16)<<ptr->return_passport_num();
+        if(ptr->return_type()==1)
+        {
+            psg_out<<setw(12)<<"First";
+        }
+        else psg_out<<setw(12)<<"Economy";
+        psg_out<<ptr->return_seat_num();
+
+        if(ptr->next!=NULL)
+        {
+            psg_out<<"\n";
+            ptr = ptr->next;
+        }
+        else break;
+    }
+
+    psg_out.close();
+    cout<<"The booking record is successfully saved to the file\n\n\n";
+    getch();
+
 }
 
 //when select type 6 at main menu, exit the system.
@@ -269,10 +320,10 @@ void read_from_file(list &ls, bool seats[], bool record[])
     //open the file
     cout<<"Please enter the file name: ";
     cin>>filename;
-    psg_in.open(filename, ios::binary | ios::in);
+    psg_in.open(/*"./test file/"+*/filename, ios::binary | ios::in);
     if(!psg_in.is_open())
     {
-        cerr<<"The file "<< filename <<"does not exist.\n";
+        cerr<<"The file "<< filename <<" does not exist.\n";
         cout<<"\n\n";
         return;
     }
@@ -370,7 +421,6 @@ void read_from_file(list &ls, bool seats[], bool record[])
     cout<<"\n\n";
 
 }
-
 
 //a function to check list.
 void check_list(bool seats[], bool record[])
