@@ -42,7 +42,7 @@ short enter_type()
 
     while(cin>>type)
     {
-        if(type<=10&&type>=1)
+        if(type<=7&&type>=1)
         {
             for(int i=0;i<49;i++)cout<<"=";
             cout<<endl;
@@ -320,7 +320,7 @@ void read_from_file(list &ls, bool seats[], bool record[])
     //open the file
     cout<<"Please enter the file name: ";
     cin>>filename;
-    psg_in.open(/*"./test file/"+*/filename, ios::binary | ios::in);
+    psg_in.open("./test file/"+filename, ios::binary | ios::in);
     if(!psg_in.is_open())
     {
         cerr<<"The file "<< filename <<" does not exist.\n";
@@ -418,27 +418,6 @@ void read_from_file(list &ls, bool seats[], bool record[])
     psg_in.close();
 
     cout<<"The booking record is successfully saved to the file\n";
-    cout<<"\n\n";
-
-}
-
-//a function to check list.
-void check_list(bool seats[], bool record[])
-{
-    for(int i=0;i<10;i++)
-    {
-        cout<<"seats["<<i<<"]: "<<seats[i]<<"  ";
-        if(i==4)cout<<"\n";
-    }
-
-    cout<<"\n\n";
-
-    for(int i=0;i<10;i++)
-    {
-        cout<<"record["<<i<<"]: "<< record[i] <<"  ";
-        if(i==4)cout<<"\n";
-    }
-    
     cout<<"\n\n";
 
 }

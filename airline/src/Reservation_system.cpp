@@ -49,15 +49,6 @@ int main()
             case 7:
             read_from_file(List, seats, record);
             break;
-
-            case 8:
-            check_list(seats, record);
-            break;
-
-            case 9:
-            List.Display_list();
-            break;
-
         }
     }
     return 0;

@@ -185,3 +185,25 @@ short record_left(bool record[])
     }
     return total;
 }
+
+
+//a function to check list.
+void check_list(bool seats[], bool record[])
+{
+    for(int i=0;i<10;i++)
+    {
+        cout<<"seats["<<i<<"]: "<<seats[i]<<"  ";
+        if(i==4)cout<<"\n";
+    }
+
+    cout<<"\n\n";
+
+    for(int i=0;i<10;i++)
+    {
+        cout<<"record["<<i<<"]: "<< record[i] <<"  ";
+        if(i==4)cout<<"\n";
+    }
+    
+    cout<<"\n\n";
+
+}
