@@ -4,6 +4,8 @@
 bool first_full(bool[]);
 bool economy_full(bool[]);
 bool record_full(bool[]);
+
+//check the answer of passenger.
 int ask_change(int);
 
 //assign a place for passenger.
@@ -14,6 +16,8 @@ void assign_record(passenger*,bool[]);
 passenger *locate_rd(list, passenger*, short);
 
 //void check_list(bool [], bool []);
+
+//return the seats or record locator left.
 short first_left(bool[]);
 short economy_left(bool[]);
 short seats_left(bool[]);

@@ -196,7 +196,12 @@ void cancel_reservation(list &ls, bool seats[], bool record[])
             cerr<<"The reservation is successfully cancelled...\n\n"<<endl;
             getch();
         }
-        else return;
+        else 
+        {
+            cout<<"\n\n";
+            getch();
+            return;
+        }
     }
     
     
@@ -320,7 +325,7 @@ void read_from_file(list &ls, bool seats[], bool record[])
     //open the file
     cout<<"Please enter the file name: ";
     cin>>filename;
-    psg_in.open("./test file/"+filename, ios::binary | ios::in);
+    psg_in.open(filename, ios::binary | ios::in);
     if(!psg_in.is_open())
     {
         cerr<<"The file "<< filename <<" does not exist.\n";
