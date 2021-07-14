@@ -1,14 +1,19 @@
-OBJECTS = lis_to_csv.o
+#OBJECTS =test.o
 
-VPATH = ./src: ./header: ./obj
+VPATH = ./src: ./obj: ./header
 
-ALL: Praser clean
+#vpath %.cpp src
+#ALL: Praser 
 
-Praser:$(OBJECTS)
-	g++ -std=c++11 -o Praser_to_scv $(OBJECTS)
+Praser: lis_to_csv.cpp
+	g++ -std=c++11 -o $@ $<
 
-lis_to_scv.o: lis_to_scv.cpp
-	g++ -std=c++11 -o lis_to_scv.o lis_to_scv.cpp
+#test.o: test.cpp
+#	g++ -std=c++11 -o test.o ./src/test.cpp
 
-clean:
-	@rm $(OBJECTS)
+#lis_to_scv.o: lis_to_scv.cpp
+#	g++ -std=c++11 -o lis_to_scv.o lis_to_scv.cpp
+
+#clean:
+#	@rm $(OBJECTS)
+
