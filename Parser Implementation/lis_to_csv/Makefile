@@ -2,7 +2,7 @@ OBJECTS = lis_to_csv.o
 
 VPATH = ./src: ./header: ./obj
 
-ALL: Praser clean
+ALL: Praser 
 
 Praser:$(OBJECTS)
 	g++ -std=c++11 -o Praser_to_scv $(OBJECTS)
