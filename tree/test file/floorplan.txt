@@ -1,0 +1,7 @@
+12V4H3V
+
+MoveTime:3
+MoveDetail:
+M1 4 3
+M2 1
+M3 4 2
