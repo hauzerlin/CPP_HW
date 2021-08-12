@@ -1,6 +1,9 @@
-#include <fstream>
 
-using namespace std;
+void Push(queue_post & Queue, std::string temp);
+void Display(queue_post & Queue);
+void Post_Links_Build(queue_post &Queue, std::string first_line, int size);
+//void Post_Links_Build(queue_post &Queue, string first_line, int size);
 
-void Read_file(TreeNodePtr * root, char *filename);
-void Write_file(TreeNodePtr *root, ofstream outfile);
+
+queue_post Read_file(TreeNodePtr * root, char *filename);
+void Write_file(TreeNodePtr *root, std::ofstream outfile);

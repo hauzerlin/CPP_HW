@@ -1,4 +1,4 @@
-12V4H3V
+1 2 V 4 H 3 V
 
 MoveTime:3
 MoveDetail:
