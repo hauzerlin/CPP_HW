@@ -17,9 +17,9 @@ struct treeNode
     treeNode *leftPtr;
     treeNode *rightPtr;
     //int operand;
-    int data;
+    //int data;
     std::string operate;
-    bool Num_or_Op;
+    //bool Num_or_Op;
 };
 
 typedef linknode First_item;
@@ -28,12 +28,13 @@ typedef TreeNode *TreeNodePtr; // synonym for TreeNode*
 
 //tree node function
 linknode* restruct(treeNode *treePtr, linknode *node);
+void restruct_tree(TreeNodePtr *treePtr, queue_post Queue);
 void insertNode(TreeNodePtr *treePtr, int value);
-void right_insert(TreeNodePtr *treePtr, char tmp);
+void right_insert(TreeNode *treePtr, std::string op);
 
 //if item is an operator return 1, else return 0;
 bool Num_or_OP(std::string item);
-void inOrder(TreeNodePtr treePtr);
+void postOrder(TreeNodePtr treePtr);
 bool Link_node_Switch(queue_post &q, std::string n1, std::string n2);
 bool Link_node_Switch(queue_post &q, linknode * op, std::string num);
 //file operate function

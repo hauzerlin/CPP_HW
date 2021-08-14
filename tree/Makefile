@@ -5,10 +5,10 @@ VPATH = ./src: ./header
 All: MAIN TEST clean
 
 TEST:
-	@./main floorplan.txt floorplan_out.txt
+	@./main.out floorplan.txt floorplan_out.txt
 
 MAIN: $(OBJECTS)
-	@g++ -I ./header -std=c++11 $(OBJECTS) -o main 
+	@g++ -I ./header -std=c++11 $(OBJECTS) -o main.out 
 
 tree_func.o:tree_func.cpp tree_func.h
 	@g++ -I ./header -std=c++11 -o tree_func.o -c $<

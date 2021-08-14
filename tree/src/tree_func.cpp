@@ -7,45 +7,14 @@
 
 using namespace std;
 
-//origin function
-void insertNode(TreeNodePtr *treePtr, int value)
-{
-    if (*treePtr == NULL) { // if tree is empty
-      *treePtr = new TreeNode;
-
-      if (*treePtr != NULL) { // if memory was allocated, then assign data
-        (*treePtr)->data = value;
-        (*treePtr)->leftPtr = NULL;
-        (*treePtr)->rightPtr = NULL;
-      }
-      else {
-         cout<<value<<" not inserted. No memory available.\n";
-      }
-   }
-   else { // tree is not empty
-      // data to insert is less than data in current node
-      if (value < (*treePtr)->data) {
-         insertNode(&((*treePtr)->leftPtr), value);
-      }
-
-      // data to insert is greater than data in current node
-      else if (value > (*treePtr)->data) {
-         insertNode(&((*treePtr)->rightPtr), value);
-      }
-      else { // duplicate data value ignored
-         cout<<"dup";
-      }
-   }
-}
-
-//new function
-/*void restruct_tree(TreeNodePtr *treePtr, queue_post Queue)
+//new function 需要丟一個空的TreeNode ***沒有遞迴只執行一次會失敗
+void restruct_tree(TreeNodePtr *treePtr, queue_post Queue)
 {
    if (*treePtr == NULL) { // if tree is empty
       *treePtr = new TreeNode;
 
       if (*treePtr != NULL) { // if memory was allocated, then assign data
-        (*treePtr)->operate = Queue.first->item;
+        (*treePtr)->operate = Queue.rear->item;
         (*treePtr)->leftPtr = NULL;
         (*treePtr)->rightPtr = NULL;
       }
@@ -54,70 +23,73 @@ void insertNode(TreeNodePtr *treePtr, int value)
       }
    }
    else { // tree is not empty
-      right_insert(treePtr, Queue.first->next);
+      restruct(*treePtr, Queue.rear->prev);
    }
-}*/
+}
 
-/*void right_insert(TreeNodePtr *treePtr, linknode *item)
-{
-   if(Num_or_OP(item->item)) // if item is a operator.
-   {
-      (*treePtr)->operate = item->item;
-      (*treePtr)->
-   }
-}*/
-
+//link nodes方向與預設相反 要從尾巴回來
 linknode* restruct(treeNode *treePtr, linknode *node)
 {
    treeNode *ptr = new treeNode;
-   treeNode *now;
+   treeNode *now = treePtr;
    linknode *temp = node;
-   if(Num_or_OP(node->item))
+   if(Num_or_OP(node->item))//如果item是operator，向右插入並進入下一層
    {
       treePtr->rightPtr = ptr;
       ptr->operate = temp->item;
       ptr->leftPtr = NULL;
+      ptr->rightPtr = NULL;
 
-      temp = restruct((treePtr)->rightPtr, node->next);
+      temp = restruct((treePtr)->rightPtr, node->prev);
+      //cout<<"temp op1: "<<temp->item<<endl;
+      //cout<<"treePtr: "<<treePtr->operate<<endl;
    }
-   else
+   else //如果item是operand，向右插入接著回到上一層
    {
       treePtr->rightPtr = ptr;
       ptr->operate = node ->item;
       ptr->leftPtr = NULL;
+      ptr->rightPtr = NULL;
 
-      return node->next;
+      //cout<<"temp num1: "<<temp->item<<endl;
+      //cout<<"treePtr: "<<treePtr->operate<<endl;
+      temp=  node->prev;
    }
-
+   //向左插入
    treeNode *ptr_left = new treeNode;
-
+   
+   //now = treePtr->rightPtr;
    treePtr->leftPtr = ptr_left;
    ptr_left->operate = temp->item;
    ptr_left ->rightPtr = NULL;
+   ptr_left ->leftPtr = NULL;
 
-   if(!Num_or_OP(temp->next->item))
+   //cout<<"ptr_left: "<<ptr_left->operate<<endl;
+   if(Num_or_OP(temp->item))
    {
-      return temp->next;
+      temp = restruct(ptr_left, temp->prev);
+      //cout<<"temp op2: "<<temp->item<<endl;
    }
    else
    {
-      temp = restruct(now->rightPtr, temp->next);
+      //ptr_left->leftPtr = NULL;
+      //cout<<"temp treePtr: "<<treePtr->operate<<endl;
+      //cout<<"temp: "<<temp->item<<endl;
+      if(temp->prev!=NULL) return temp->prev;
    }
-
    return temp;
    //restruct_tree()
 }
 
 // begin inorder traversal of tree
-void inOrder(TreeNodePtr treePtr) {
+void postOrder(TreeNodePtr treePtr) {
    // if tree is not empty, then traverse
    if (treePtr != NULL) {
-      inOrder(treePtr->leftPtr);
-      cout<<setw(3)<<treePtr->data;
-      inOrder(treePtr->rightPtr);
+      postOrder(treePtr->leftPtr);
+      postOrder(treePtr->rightPtr);
+	  cout<<left<<setw(2)<<treePtr->operate;
    }
 }
-
 //to tell item is a number or a operater.
 bool Num_or_OP(string item)
 {

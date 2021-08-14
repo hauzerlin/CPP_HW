@@ -10,14 +10,14 @@ ifstream infile;
 ofstream outfile;
 
 //回傳一個存放input file第一行的linked list 結構
-queue_post Read_file(TreeNodePtr *root, char* filename)
+queue_post Read_file(TreeNodePtr *root, char** filename)
 {
     //cout<<"\nfilename: "<<filename<<endl;
     queue_post Queue;
     string op1, op2, op3;
     int Movetime;
 
-    infile.open(filename, ios::binary|ios::in);
+    infile.open(filename[1], ios::binary|ios::in);
     if(!infile.is_open())
     {
         cerr<<"File: "<<filename<<" isn't open.";
@@ -54,11 +54,11 @@ queue_post Read_file(TreeNodePtr *root, char* filename)
     infile.ignore(20,'\n');
     infile.ignore(20,'\n');
     
+    Save_tree_toFile(root,filename[2]);
     //int case1=0, case2=0, case3=0;
     for(int i=0;i<Movetime;i++)
     {
         infile>>op1;
-        //cout<<"op1[1]: "<<op1[1]<<endl;
         switch(op1[1])
         {
             case '1':
@@ -67,6 +67,7 @@ queue_post Read_file(TreeNodePtr *root, char* filename)
                 infile>>op2>>op3;
                 cout<<"M"<<op1[1]<<" "<<op2<<" "<<op3<<endl;
                 M1(Queue,op2,op3);
+                Write_to_file(Queue, &outfile);
                 Display(Queue);
                 cout<<endl;
                 infile.ignore(20,'\n');
@@ -80,6 +81,7 @@ queue_post Read_file(TreeNodePtr *root, char* filename)
                 int num2 = atoi(op2.c_str());
                 cout<<"M"<<op1[1]<<" "<<op2<<endl;
                 M2(Queue,num2);
+                Write_to_file(Queue, &outfile);
                 Display(Queue);
                 cout<<endl;
                 infile.ignore(20,'\n');
@@ -92,6 +94,7 @@ queue_post Read_file(TreeNodePtr *root, char* filename)
                 //cout<<"op2: "<<op2<<"  op3: "<<op3<<endl;
                 cout<<"M"<<op1[1]<<" "<<op2<<" "<<op3<<endl;
                 M3(Queue, op2, op3);
+                Write_to_file(Queue, &outfile);
                 Display(Queue);
                 cout<<endl;
                 infile.ignore(20,'\n');
@@ -118,6 +121,16 @@ queue_post Read_file(TreeNodePtr *root, char* filename)
 
     
     return Queue;
+}
+
+void Save_tree_toFile(TreeNodePtr *root, char *filename)
+{
+    outfile.open(filename, ios::binary|ios::out);
+    if(!outfile.is_open())
+    {
+        cerr<<"File: "<<filename<<" isn't open.";
+        exit(-1);
+    }
 }
 
 //建立一個Queue並將資料push到link node的結構中
@@ -167,4 +180,14 @@ void Display(queue_post & Queue)
             cout << n->item;
             if(n->next!=NULL) cout<< " " ;
         }
+}
+
+void Write_to_file(queue_post &Queue, ofstream *out)
+{
+    for(linknode *n = Queue.first; n != NULL; n = n->next)
+        {
+            *out << n->item;
+            if(n->next!=NULL) *out<< " " ;
+        }
+    *out<<"\n";
 }

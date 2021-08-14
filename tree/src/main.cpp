@@ -21,60 +21,19 @@ int main(int argc, char *argv[])
     Check_Command_Format(argc, argv);
 
     TreeNodePtr rootPtr=NULL; // tree initially empty
-
-    //if(Num_or_OP('h'))cout<<"h is a OP"<<endl;
-    //if(!Num_or_OP('0'))cout<<"0 is a number"<<endl;
+    TreeNodePtr *temp;
 
     //save first line of input file in linked list.
     //and read the file.
-    Queue = Read_file(&rootPtr,argv[1]);
+    Queue = Read_file(&rootPtr,argv);
     
-    //Display(Queue);
+    restruct_tree(&rootPtr,Queue);
+    restruct_tree(&rootPtr,Queue);
 
-    //cout<<"\nthe nodes number is: "<<Queue.num<<endl;
-
-    /*cout<<"Queue's first: "<<Queue.first->item<<endl;
-    cout<<"QUeue's rear:"<<Queue.rear->item<<endl;*/
-
-    //Link_node_Switch(Queue,"1","V");
-    /*M1(Queue, "4", "3");
-
-    cout<<"M1 4 3"<<endl;
-    Display(Queue);
-
-    M2(Queue, 1);
-
-    cout<<"\nM2 1"<<endl;
-    Display(Queue);
-
-    //cout<<"\nthe nodes number is: "<<Queue.num<<endl;
-
-    M3(Queue,"4", "2");
-
-    cout<<"\nM3 4 2"<<endl;
-    Display(Queue);*/
-    
-    //cout<<"\nthe nodes number is: "<<Queue.num<<endl;
-    /*string tmp1="1", tmp2= "1", tmp3 = "3";
-    cout<<tmp1.compare(tmp2)<<endl;
-    cout<<tmp2.compare(tmp3)<<endl;*/
-
-
-    /*treeNode test;
-    root=&test;
-    test.operand = 12;
-    test.operater = 'H';
-
-    cout<<"test operand: "<< test.operand <<endl;
-    cout<<"tets operater: "<< test.operater <<endl;
-
+    cout<<"tree postorder: \n";
+    postOrder(rootPtr);
     cout<<endl;
 
-    cout<<"root operand: "<< root->operand <<endl;
-    cout<<"root operater: "<< root->operater <<endl;
-
-    //InsertNode(&root,2);
-    //test_func();*/
     return 0; 
 }
 
